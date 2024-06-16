@@ -12,4 +12,4 @@ test: ../images/test
 nc: 6
 
 # class names
-names: [ 'Persona', 'Telefono movil', 'Laptop', 'Mouse', 'Monitor', 'Teclado' ]
+names: [ 'Persona', 'Telefono Movil', 'Laptop', 'Mouse', 'Monitor', 'Teclado' ]
