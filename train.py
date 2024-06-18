@@ -1,6 +1,3 @@
-from dotenv import load_ipython_extension
-from torch.utils.tensorboard import SummaryWriter
-
 import argparse
 import logging
 import math
@@ -100,7 +97,7 @@ def train(hyp, opt, device, tb_writer=None):
         check_dataset(data_dict)  # check
     train_path = data_dict['train']
     test_path = data_dict['val']
-    
+
     # Freeze
     freeze = [f'model.{x}.' for x in (freeze if len(freeze) > 1 else range(freeze[0]))]  # parameter names to freeze (full or partial)
     for k, v in model.named_parameters():
@@ -508,7 +505,7 @@ def train(hyp, opt, device, tb_writer=None):
                                           plots=False,
                                           is_coco=is_coco,
                                           v5_metric=opt.v5_metric)
-        
+
         # Strip optimizers
         final = best if best.exists() else last  # final model
         for f in last, best:
@@ -521,31 +518,9 @@ def train(hyp, opt, device, tb_writer=None):
                                             name='run_' + wandb_logger.wandb_run.id + '_model',
                                             aliases=['last', 'best', 'stripped'])
         wandb_logger.finish_run()
-        
     else:
         dist.destroy_process_group()
     torch.cuda.empty_cache()
-
-
-
-    #TENSORBOARD
-    log_dir = "logs/fit/"
-    tb_writer = SummaryWriter(log_dir=log_dir)
-    global_step = 0  # Inicialización del global_step
-    batch_size = 32
-    root = './data'
-    for epoch in range(60):
-    # Lógica de entrenamiento
-        loss = 0.5
-
-        # Aumentar global_step después de cada paso de entrenamiento
-        global_step += 1
-        accuracy = 0.9
-        # Ejemplo de registro de métricas dentro del bucle de entrenamiento
-        tb_writer.add_scalar('train/loss', loss, global_step)
-        tb_writer.add_scalar('train/accuracy', accuracy, global_step)
-
-        
     return results
 
 
