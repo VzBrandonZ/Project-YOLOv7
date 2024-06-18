@@ -4,9 +4,9 @@
 #download: bash ./scripts/get_coco.sh
 
 # train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
-train: ../images/train  # 118287 images
-val: ../images/val  # 5000 images
-test: ../images/test
+train: ./images/train  # 118287 images
+val: ./images/val  # 5000 images
+test: ./images/test
 
 # number of classes
 nc: 6
